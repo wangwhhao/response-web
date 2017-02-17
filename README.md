@@ -158,10 +158,11 @@
  * 一般使用class定义样式，id一般用于js快速区别和获取元素，class一般用中横线分隔，id用驼峰式命名
  * 必不可少的图片使用`<img>`引入，可有可无的装饰性图片用标签的style引入
  * 重置css，用normalize.css:保护了有价值的默认值;修复了浏览器的bug;不会让你的调试工具变的杂乱;是模块化的;拥有详细的文档。参考 http://jerryzou.com/posts/aboutNormalizeCss/
- * 任意浏览器的默认字体高都是16px。所有未经调整的浏览器都符合: 1rem=16px。那么12px=0.75rem,10px=0.625rem。为了简化font-size的换算，需要在css中的body选择器中声明font-size=62.5%，这就使rem值变为 16px*62.5%=10px, 这样12px=1.2rem, 10px=1rem, 也就是说只需要将你的原来的px数值除以10，然后换上rem作为单位就行了。所以我们在写CSS的时候，需要注意两点：
-    * body选择器中声明font-size=62.5%；
-    * 将你的原来的px数值除以10，然后换上rem作为单位；
-    * 重新计算那些被放大的字体的rem数值。避免字体大小的重复声明。
+ * 任意浏览器的默认字体高都是16px。所有未经调整的浏览器都符合: 1rem=16px。那么12px=0.75rem,10px=0.625rem。为了简化font-size的换算，需要在css中的body选择器中声明font-size=62.5%，这就使rem值变为 16px*62.5%=10px, 这样12px=1.2rem, 10px=1rem, 也就是说只需要将你的原来的px数值除以10，然后换上rem作为单位就行了。所以我们在写CSS的时候，需要注意两点
+   * body选择器中声明font-size=62.5%；
+   * 将你的原来的px数值除以10，然后换上rem作为单位；
+   * 重新计算那些被放大的字体的rem数值。避免字体大小的重复声明。
+   * 在中文Chrome中，如果html的font-size: 62.5%; 那么 1rem = 12px，所以为了兼容性，可以选择设置 font-size: 625%; 1rem = 100px
  * 清除浮动：
  ```
  .clearfix:after {
@@ -170,6 +171,12 @@
      clear:noth
  }
  ```
- 
- * 
+ * 两个li标签间的空格字符会产生边距，消除方式有：
+   * 父元素font-size:0,子元素重新加font-size
+   * 直接在html把li标签尾首相连，去掉空格，这样简单有效但是不雅观
+   * li不加闭合标签
+   * 设置负值margin-left
+   * css4中white-space-collapsing可以解决
+ * 哪一块要应用媒体查询，就把相应的css代码写在它的下面，方便查找和维护
+ * 在媒体查询中，相对单位rem和em的基准高于html，所以与在html中设置的rem大小并不一致！这里的rem或em依然是：1rem=1em=16px，所以800/16=50rem。另外，rem兼容性不如em，故采用兼容性更好的em为媒体查询的断点单位。
    
